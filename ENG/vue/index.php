@@ -1,5 +1,6 @@
 <?php
-	require_once('../modele/connect_bdd.php');
+	// require init
+	require_once '../modele/connect_bdd.php';
 
 	$bdd = bdd::getInstance();
 ?>
@@ -180,7 +181,7 @@
 				});
 
 				// rendre bouton actif ou inactif au clic
-				$('#categorie button, #semestre button, #typeEForm button, #lgform button img').click(function(){
+				$('#categorie button, #semestre button, #typeEForm button').click(function(){
 					var id = $(this).attr('id');
 
 					if( id == "active")
@@ -189,6 +190,18 @@
 						$(this).attr('id', 'active');
 
 				});
+				
+				// rendre img active ou non au clic
+				$('#lgform button').click(function(){
+					var id = $(this).children().attr('id');
+
+					if( id == "active")
+						$(this).children().removeAttr('id');
+					else
+						$(this).children().attr('id', 'active');
+
+				});
+
 
 				// recherche
 				$('#rechForm input').keypress(function(e) {

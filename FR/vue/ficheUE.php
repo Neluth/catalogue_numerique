@@ -1,5 +1,5 @@
 <?php
-	require_once('../modele/connect_bdd.php');
+	//require_once('../modele/connect_bdd.php');
 
 	$bdd = bdd::getInstance();
 	$courseTitle = $bdd->getCourseTitle($_POST['codeUE']);
@@ -8,6 +8,8 @@
 	$comp = $bdd->getSkill($_POST['codeUE']);
 	$infosUE = $bdd->getInformationsUE($_POST['codeUE']);
 	$pedagogie = $bdd->getPedagogie($_POST['codeUE']);
+	
+	$comment = $bdd->getCommentaire($_POST['codeUE']);
 
 	$antecedents = $bdd->getAntecedent($_POST['codeUE']);
 ?>
@@ -73,6 +75,17 @@
 							<div class="hide competencebloc"><?php echo($comp); ?> </div>
 						</div>
 					</section>
+
+					<section class='blocUE'>
+						<div class='titleUE'>
+							<i class='fas fa-sort-up' id="commentairesbloc"></i>
+							<h2>Commentaires</h2>
+						</div>
+						<div class='ficheUE'>
+							<div class="hide commentairesbloc"><?php echo($comment); ?> </div>
+						</div>
+					</section>
+
 				</div>
 			</td>
 		</tr>

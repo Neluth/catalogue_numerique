@@ -1,5 +1,6 @@
 <?php
-	require_once('../modele/connect_bdd.php');
+	//require_once('../modele/connect_bdd.php');
+	require_once '../../init.php';
 
 	$bdd = bdd::getInstance();
 ?>
@@ -10,6 +11,7 @@
 		<title>Catalogue des UE - UTT</title>
 
 		<meta charset="utf-8">
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 		<html lang="fr">
 	    <meta name="robots" content="all,follow">
 	    <meta name="googlebot" content="index,follow,snippet,archive">
@@ -180,13 +182,24 @@
 				});
 
 				// rendre bouton actif ou inactif au clic
-				$('#categorie button, #semestre button, #typeEForm button, #lgform button img').click(function(){
+				$('#categorie button, #semestre button, #typeEForm button').click(function(){
 					var id = $(this).attr('id');
 
 					if( id == "active")
 						$(this).removeAttr('id');
 					else
 						$(this).attr('id', 'active');
+
+				});
+
+				// rendre img active ou non au clic
+				$('#lgform button').click(function(){
+					var id = $(this).children().attr('id');
+
+					if( id == "active")
+						$(this).children().removeAttr('id');
+					else
+						$(this).children().attr('id', 'active');
 
 				});
 

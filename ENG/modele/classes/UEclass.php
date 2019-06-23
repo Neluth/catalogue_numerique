@@ -22,6 +22,10 @@ class ue{
 	public function getProgramme($codeUE){
 		return $this->requete($codeUE, "programme");
 	}
+	
+	public function getCommentaire($codeUE){
+		return $this->requete($codeUE, "commentaires");
+	}
 
 	public function getAntecedent($codeUE){
 		$req = "select codeUE_antecedent from antecedent where codeUE = '".$codeUE ."'";

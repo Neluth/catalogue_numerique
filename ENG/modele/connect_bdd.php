@@ -145,6 +145,10 @@
 		public function getPedagogie($codeUE){
 			return $this->ue->getPedagogie($codeUE);
 		}
+		
+		public function getCommentaire($codeUE){
+			return $this->ue->getCommentaire($codeUE);
+		}
 
 		// ajout/retrait categorie
 		public function addCateg($codeC){

@@ -23,6 +23,10 @@ class ue{
 		return $this->requete($codeUE, "programme");
 	}
 
+	public function getCommentaire($codeUE){
+		return $this->requete($codeUE, "commentaires");
+	}
+
 	public function getAntecedent($codeUE){
 		$req = "select codeUE_antecedent from antecedent where codeUE = '".$codeUE ."'";
 		$res = $this->base->query($req);
@@ -66,13 +70,15 @@ class ue{
 	}
 
 	public function getInformationsUE($codeUE){
-			$req = "select credits, automne, printemps from UE where codeUE = '".$codeUE ."' and langue_bdd='FR'";
+			$req = "select u.credits, u.automne, u.printemps, t.libelleTE from UE u, enseignement e, typeenseignement t where u.codeUE = '".$codeUE ."' and u.langue_bdd='FR' and e.codeTE = t.codeTE and e.codeUE = '".$codeUE . "'";
 			$res = $this->base->query($req);
 			$tab = "";
 
 			// vides par défauts, remplis si enseignement
 			$aut="";
 			$print ="";
+
+			//print_r($this->base->errorInfo());
 
 			while($infosUE = $res->fetch()){
 				// catégories
@@ -106,6 +112,11 @@ class ue{
 					$tab .= $categ[0] . " ";
 				}
 				$tab .="</p>";
+
+				// langue enseignement
+				$tab .="<p>Type d'enseignement : ";
+				$tab .=$infosUE['libelleTE'];
+				$tab .='</p>';
 			}
 
 			return $tab;

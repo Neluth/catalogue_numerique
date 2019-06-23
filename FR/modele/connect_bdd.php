@@ -1,12 +1,12 @@
 <?php
 	
-	require_once("classes/AnneeClass.php");
-	require_once("classes/FormationClass.php");
-	require_once("classes/CategorieClass.php");
-	require_once("classes/SemestreClass.php");
-	require_once("classes/UEClass.php");
-	require_once("classes/TypeEClass.php");
-	require_once("classes/LangueClass.php");
+	require_once("classes/Annee.php");
+	require_once("classes/Formation.php");
+	require_once("classes/Categorie.php");
+	require_once("classes/Semestre.php");
+	require_once("classes/ue.php");
+	require_once("classes/TypeE.php");
+	require_once("classes/Langue.php");
 
 
 	session_start();
@@ -34,6 +34,7 @@
 
 			try{
 				$this->base = new PDO($this->dataSource, $this->user,$this->password);
+				$this->base->exec("set names utf8");
 			}
 			catch(PDOException $e){
 				die("Erreur!" . $e->getMessage());
@@ -144,6 +145,10 @@
 
 		public function getPedagogie($codeUE){
 			return $this->ue->getPedagogie($codeUE);
+		}
+
+		public function getCommentaire($codeUE){
+			return $this->ue->getCommentaire($codeUE);
 		}
 
 		// ajout/retrait categorie
@@ -337,8 +342,9 @@
 
 			// LA FORMATION
 			if( !empty($_SESSION['formation']) && $_SESSION['formation']!="all"){
-				$req .= " and iue.codeF = '".$_SESSION['formation']. "'";
+				$req .= " and (iue.codeF = '".$_SESSION['formation']. "' OR iue.codeF = 'toutes')";
 			}
+
 
 			// LANGUE
 			$lg = array();
@@ -379,6 +385,10 @@
 				$req .= ")";
 			}
 
+			// ordre par code
+			$req .= " order by ue.codeUE";
+
+			// EXECUTION DE LA REQUETE
 			$res = $this->base->query($req);
 			//print_r($this->base->errorInfo());
 			while( $infosUE = $res->fetch()){

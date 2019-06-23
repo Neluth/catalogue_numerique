@@ -8,7 +8,7 @@
 		}
 
 		public function getAllFormations(){
-			$requete = "select codeF from formation";
+			$requete = "select codeF from formation where idF > 0";
 
 			$res = $this->base->query($requete);
 
